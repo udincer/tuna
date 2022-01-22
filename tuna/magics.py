@@ -19,26 +19,26 @@ def _display_tuna(
     tuna_dir = Path(tuna_dir)
     static_dir = tuna_dir / "static"
 
-    # in-line all of the css and js files
-    replacements = {
-        '<link rel="stylesheet" href="static/bootstrap.min.css">': "bootstrap.min.css",
-        '<link href="static/tuna.css" rel="stylesheet">': "tuna.css",
-        '<script src="static/d3.min.js"></script>': "d3.min.js",
-        '<script src="static/icicle.js"></script>': "icicle.js",
-    }
+    # # in-line all of the css and js files
+    # replacements = {
+    #     '<link rel="stylesheet" href="static/bootstrap.min.css">': "bootstrap.min.css",
+    #     '<link href="static/tuna.css" rel="stylesheet">': "tuna.css",
+    #     '<script src="static/d3.min.js"></script>': "d3.min.js",
+    #     '<script src="static/icicle.js"></script>': "icicle.js",
+    # }
 
     page = (tuna_dir / "index.html").read_text()
-    page = re.sub(r"<nav.*</nav>", "", page, flags=re.DOTALL)
+    # page = re.sub(r"<nav.*</nav>", "", page, flags=re.DOTALL)
     page = re.sub(r"<footer.*</footer>", "", page, flags=re.DOTALL)
     page = page.replace('row-height="100"', f'row-height="{row_height}"')
 
-    for rep_string, rep_fname in replacements.items():
-        asset = (static_dir / rep_fname).read_text()
-        if rep_fname.endswith(".js"):
-            asset = f"<script>{asset}</script>"
-        elif rep_fname.endswith(".css"):
-            asset = f"<style>{asset}</style>"
-        page = page.replace(rep_string, asset)
+    # for rep_string, rep_fname in replacements.items():
+    #     asset = (static_dir / rep_fname).read_text()
+    #     if rep_fname.endswith(".js"):
+    #         asset = f"<script>{asset}</script>"
+    #     elif rep_fname.endswith(".css"):
+    #         asset = f"<style>{asset}</style>"
+    #     page = page.replace(rep_string, asset)
     # Use `HTML` with an iframe inside rather than just `IFrame` so that we don't have
     # to write out an html file and ensure it's not deleted before the results are
     # displayed
